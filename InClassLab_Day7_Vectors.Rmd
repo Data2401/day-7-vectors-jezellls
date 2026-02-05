@@ -1,10 +1,11 @@
 ---
 title: "In Class Lab"
-author: "Dr. Shoemaker"
+author: "Jezel Valdez"
 date: "DATA 2401"
 output: html_document
 ---
-**Note: Your exam will be in a similar format to this (RMarkdown File with Questions and Code chunks for your answers), so make sure you have the process for knitting to html working.** 
+
+**Note: Your exam will be in a similar format to this (RMarkdown File with Questions and Code chunks for your answers), so make sure you have the process for knitting to html working.**
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -12,122 +13,240 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## In-Class Exercises
 
-### Set 1 
+### Set 1
 
-1. Use the colon operator : to create a vector `n` of numbers from 10:49
-2. Use the `length()` function to get the number of elements in `n`
-3. Add 1 to each element in `n` and print the result
-4. Create a vector `m` that contains the numbers 10 to 1 (in that order), in two different ways, neither of which is just typing "10, 9 , 8 ...".  Hint: use one of the helper functions we learned.
-5. Subtract `m` FROM `n`. Note the recycling!
-
-### Set 2 
-
-1. Use the `seq()` function to produce a range of numbers from -5 to 10 in `0.1` increments. Store it in a variable `x_range`
-2. Create a vector `sin_wave` by calling the `sin()` function on each element in `x_range`.
-3. Use the `plot()` function to plot your "wave"!
-     + the x vector goes in the first argument, the y vector goes in the second argument
-     + You'll need to add the argument `type = "l"` for a line. NOTE: That is a lower case "L", not a 1. 
-
-
-### Set 3 
-
-1. Use `:` to make a vector of the integers from 40 to 50 called `first_nums`
-2. Use `seq()` to make a vector of the integers from 51 to 60 called `next_nums`
-3. Combine them using `c()`
-4. Use indexing to access the 7th number in your combined vector
-5. Use indexing to access the 5th to the 8th numbers in your combined vector
-6. Use indexing to create a new vector that contains the first 3 elements and last 3 elements of your combined vector. 
-7. Bonus/extra: do the above in a way that would work no matter how long the vector is (as long as it's longer than 2 elements)
-
-## In-Class Activities
-
-1. Missingness 
-
-* Use is.na(x) to find which entries are missing in the vector below.
-* Create x_no_na that removes the missing values.
-* Replace the missing values with the mean of the non-missing values (compute the mean yourself from x_no_na).
-     * Hint: x[is.na(x)] <- ...
+1.  Use the colon operator : to create a vector `n` of numbers from 10:49
 
 ```{r}
-x <- c(3.2, NA, 4.1, 5.0, NA, 2.8)
+n <- 10:49
+```
+
+2.  Use the `length()` function to get the number of elements in `n`
+
+```{r}
+length(n)
 
 ```
 
-1. Logical indexing
-
-* Using the `grades` vector from class:
-* Create a logical vector is_a <- grades >= 90
-* Print the values that are A’s (you already do this)
-* Now print the indices/positions of the A’s using which(is_a)
-* How many A’s are there? Do it two ways:
-     * length(grades[is_a])
-     * sum(is_a) (since TRUE counts as 1)
+3.  Add 1 to each element in `n` and print the result
 
 ```{r}
+n + 1
+```
 
+4.  Create a vector `m` that contains the numbers 10 to 1 (in that order), in two different ways, neither of which is just typing "10, 9 , 8 ...". Hint: use one of the helper functions we learned.
+
+```{r}
+m <- c(10:1)
+
+```
+
+5.  Subtract `m` FROM `n`. Note the recycling!
+
+```{r}
+nMinusm <- n - m
+```
+
+### Set 2
+
+1.  Use the `seq()` function to produce a range of numbers from -5 to 10 in `0.1` increments. Store it in a variable `x_range`
+
+    ```{r}
+    x_range <- seq(-5,10, by = 0.1)
+    ```
+
+2.  Create a vector `sin_wave` by calling the `sin()` function on each element in `x_range`.
+
+    ```{r}
+    sin_wave <- sin(x_range)
+    ```
+
+3.  Use the `plot()` function to plot your "wave"!
+
+    -   the x vector goes in the first argument, the y vector goes in the second argument
+
+    -   You'll need to add the argument `type = "l"` for a line. NOTE: That is a lower case "L", not a 1.
+
+```{r}
+  x <- seq(-5, 10, by =0.25)
+  y <- sin(x)
+  plot(x,y, type = "l")
+
+```
+
+### Set 3
+
+1.  Use `:` to make a vector of the integers from 40 to 50 called `first_nums`
+
+2.  Use `seq()` to make a vector of the integers from 51 to 60 called `next_nums`
+
+3.  Combine them using `c()`
+
+4.  Use indexing to access the 7th number in your combined vector
+
+5.  Use indexing to access the 5th to the 8th numbers in your combined vector
+
+6.  Use indexing to create a new vector that contains the first 3 elements and last 3 elements of your combined vector.
+
+7.  Bonus/extra: do the above in a way that would work no matter how long the vector is (as long as it's longer than 2 elements)
+
+    ```{r}
+    first_nums <- 40:50
+    next_nums <- seq(51, 60, by = 1)
+    combined <- c(first_nums, next_nums)
+    combined[5]
+    combined[8]
+    new_vector <- c(combined[1:3], combined[18:21])
+    ```
+
+## In-Class Activities
+
+1.  Missingness
+
+-   Use is.na(x) to find which entries are missing in the vector below.
+-   Create x_no_na that removes the missing values.
+-   Replace the missing values with the mean of the non-missing values (compute the mean yourself from x_no_na).
+    -   Hint: x[is.na(x)] \<- ...
+
+```{r}
+x <- c(3.2, NA, 4.1, 5.0, NA, 2.8)
+x_no_na <- mean(x[!is.na(x)])
+x[is.na(x)] <- x_no_na
+```
+
+1.  Logical indexing
+
+-   Using the `grades` vector from class:
+-   Create a logical vector is_a \<- grades \>= 90
+-   Print the values that are A’s (you already do this)
+-   Now print the indices/positions of the A’s using which(is_a)
+-   How many A’s are there? Do it two ways:
+    -   length(grades[is_a])
+    -   sum(is_a) (since TRUE counts as 1)
+
+```{r}
+grades <- c(99,  77, 100,  91,  87,  72,  82,  94,  81)
+is_a <- grades >= 90
+grades[is_a]
+length(grades[is_a])
 ```
 
 1.  Emperical probabilities
 
-* Set a seed: `set.seed(2401)`
-* Simulate 200 die rolls (fair die) in a vector rolls (use sample(1:6, ...))
-* Use table(rolls) to count how many of each face occurred.
-* Convert counts to proportions (estimated probabilities) by dividing by length(rolls).
-* Which face was most common in your simulation?
-
+-   Set a seed: `set.seed(2401)`
+-   Simulate 200 die rolls (fair die) in a vector rolls (use sample(1:6, ...))
+-   Use table(rolls) to count how many of each face occurred.
+-   Convert counts to proportions (estimated probabilities) by dividing by length(rolls).
+-   Which face was most common in your simulation?
 
 ```{r}
+set.seed(2401)
+rolls <- sample(1:6, size = 200, replace = TRUE)
+props <- counts / length(rolls)
+
+counts
+props
+```
+
+1.  Write a *function* to simulate rolling a 6-sided die and returns the result.
+
+```{r}
+roll_die <- function(){
+  sample(1:6, size = 1, replace = TRUE)
+}
+```
+
+1.  Write a function to simulate rolling 2 6-sided dice that returns the sum of the rolls.
+
+```{r}
+roll_die1 <- function(){
+  rolls <- sample(1:6, size = 2, replace =  TRUE)
+  sum(rolls)
+}
 
 ```
 
-
-1. Write a *function* to simulate rolling a 6-sided die and returns the result.
-
-```{r}
-
-```
-
-
-
-1. Write a function to simulate rolling 2 6-sided dice that returns the sum of the rolls. 
-
-```{r}
-
-
-```
-
-
-1. Write a function that takes two people name's as strings, simulates rolling a 6-sided die for each of the names, then returns the name of the person with the higher roll. The function should reroll once on a tie, but if there is a second tie, it should return "draw". 
-
+1.  Write a function that takes two people name's as strings, simulates rolling a 6-sided die for each of the names, then returns the name of the person with the higher roll. The function should reroll once on a tie, but if there is a second tie, it should return "draw".
 
 ```{r}
 # Your one-roll function goes here
-
+roll_winner <- function(jezel, jasmine) {
+  
+  # First roll
+  r1 <- sample(1:6, 1)
+  r2 <- sample(1:6, 1)
+  
+  if (r1 > r2) {
+    return(name1)
+  } else if (r2 > r1) {
+    return(name2)
+  }
+  
+  # If tied, reroll once
+  r1 <- sample(1:6, 1)
+  r2 <- sample(1:6, 1)
+  
+  if (r1 > r2) {
+    return(jezel)
+  } else if (r2 > r1) {
+    return(jasmine)
+  }
+  
+  # Second tie → draw
+  "draw"
+}
 ```
 
+1.  Write a second function (you may start by modifying the first one) that takes two names as strings, simulates both of them rolling die 15 times, and returns the name of the person who "won" more rolls. Don't reroll ties this time, but don't count them as "wins".
 
-1. Write a second function (you may start by modifying the first one) that takes two names as strings, simulates both of them rolling die 15 times, and returns the name of the person who "won" more rolls. Don't reroll ties this time, but don't count them as "wins". 
+Process:
 
-Process: 
-
-* Simulate 15 rolls each for two players, p1 and p2 (vectors).
-* Create a logical vector p1_wins <- p1 > p2
-* Create a logical vector p2_wins <- p2 > p1
-* Create a logical vector ties <- p1 == p2
-* Report:
-     * number of p1 wins (sum(p1_wins))
-     * number of p2 wins (sum(p2_wins))
-     * number of ties (sum(ties))
+-   Simulate 15 rolls each for two players, p1 and p2 (vectors).
+-   Create a logical vector p1_wins \<- p1 \> p2
+-   Create a logical vector p2_wins \<- p2 \> p1
+-   Create a logical vector ties \<- p1 == p2
+-   Report:
+    -   number of p1 wins (sum(p1_wins))
+    -   number of p2 wins (sum(p2_wins))
+    -   number of ties (sum(ties))
 
 ```{r}
-
+roll_winner_15 <- function(name1, name2) {
+  
+  # Simulate 15 rolls each
+  p1 <- sample(1:6, 15, replace = TRUE)
+  p2 <- sample(1:6, 15, replace = TRUE)
+  
+  # Logical vectors
+  p1_wins <- p1 > p2
+  p2_wins <- p2 > p1
+  ties    <- p1 == p2
+  
+  # Counts
+  n_p1   <- sum(p1_wins)
+  n_p2   <- sum(p2_wins)
+  n_ties <- sum(ties)
+  
+  # Report
+  cat(name1, "wins:", n_p1, "\n")
+  cat(name2, "wins:", n_p2, "\n")
+  cat("ties:", n_ties, "\n")
+  
+  # Determine winner
+  if (n_p1 > n_p2) {
+    return(name1)
+  } else if (n_p2 > n_p1) {
+    return(name2)
+  } else {
+    return("draw")
+  }
+}
 
 ```
 
-
-3. Modify your function from (2) so that the person in the first argument has a die that is weighted to get higher numbers more often (you may decide the actual percentage change). Run the function ten or so times. Does the second person ever win?
+3.  Modify your function from (2) so that the person in the first argument has a die that is weighted to get higher numbers more often (you may decide the actual percentage change). Run the function ten or so times. Does the second person ever win?
 
 ```{r}
 # Your "cheating" function goes here
-```
 
+```
